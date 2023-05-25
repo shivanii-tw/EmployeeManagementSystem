@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @Validated
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired
@@ -24,7 +24,6 @@ public class EmployeeController {
 
     @PostMapping(value = "/add")
     public ResponseEntity<Object> addEmployee(@Valid @RequestBody EmployeeDTO employee) throws ApplicationException {
-        employee.setAge(employee.getDob());
         employeeService.addEmployee(employee);
 
         String successMessage = "INSERT_SUCCESS of aadhar "+ employee.getAadhar();
@@ -32,7 +31,9 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/get/{empId}")
-    public ResponseEntity<EmployeeDTO> getEmployeeDetails(@PathVariable @Min(value = 1, message = "{employee id invalid}") @Max(value = 10000, message = "{employee id invalid}") long empId) throws ApplicationException {
+    public ResponseEntity<EmployeeDTO> getEmployeeDetails
+            (@PathVariable @Min(value = 1, message = "{employee id invalid}") @Max(value = 10000,
+                    message = "{employee id invalid}") long empId) throws ApplicationException {
         EmployeeDTO employee = employeeService.getEmployee(empId);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }

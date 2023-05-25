@@ -1,7 +1,6 @@
 package com.employee.exception;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import org.springframework.dao.DataIntegrityViolationException;
+import com.employee.utility.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -33,11 +32,10 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorInfo> exceptionHandler(HttpMessageNotReadableException exception) {
-//        System.out.println("jsonexcep "+exception.getLocalizedMessage());
         ErrorInfo errorInfo = new ErrorInfo();
         errorInfo.setErrorCode(HttpStatus.BAD_REQUEST.value());
 
-        String errorMsg = "Date format should be 'dd-MM-yyyy'";
+        String errorMsg = Constants.EMPLOYEE_DOB_FORMAT_ERROR_MSG;
 
         errorInfo.setErrorMessage(errorMsg);
         errorInfo.setTimestamp(LocalDateTime.now());
@@ -50,7 +48,7 @@ public class ExceptionControllerAdvice {
         error.setErrorMessage(exception.getMessage());
         error.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         error.setTimestamp(LocalDateTime.now());
-        return new ResponseEntity<ErrorInfo>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
