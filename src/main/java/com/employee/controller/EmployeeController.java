@@ -16,13 +16,12 @@ import java.util.List;
 
 @RestController
 @Validated
-@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/employees")
     public ResponseEntity<Object> addEmployee(@Valid @RequestBody EmployeeDTO employee) throws ApplicationException {
         employeeService.addEmployee(employee);
 
@@ -30,21 +29,21 @@ public class EmployeeController {
         return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/get/{empId}")
+    @GetMapping(value = "/employees/{aadhar}")
     public ResponseEntity<EmployeeDTO> getEmployeeDetails
-            (@PathVariable @Min(value = 1, message = "{employee id invalid}") @Max(value = 10000,
-                    message = "{employee id invalid}") long empId) throws ApplicationException {
-        EmployeeDTO employee = employeeService.getEmployee(empId);
+            (@PathVariable("aadhar") @Min(value = 1, message = "{aadhar invalid}") @Max(value = 10000,
+                    message = "{aadhar invalid}") long aadhar) throws ApplicationException {
+        EmployeeDTO employee = employeeService.getEmployee(aadhar);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/get/all")
+    @GetMapping(value = "/employees")
     public ResponseEntity<List<EmployeeDTO>> getAllEmployeeDetails() throws ApplicationException {
         List<EmployeeDTO> employeeDTOList = employeeService.getAllEmployees();
         return new ResponseEntity<>(employeeDTOList, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update")
+    @PutMapping(value = "/employees")
     public ResponseEntity<Object> updateEmployee(@RequestBody EmployeeDTO employee) throws ApplicationException {
         employeeService.updateEmployee(employee.getAadhar(), employee.getDepartment());
         String successMessage = "UPDATE_SUCCESS of aadhar "+employee.getAadhar();
