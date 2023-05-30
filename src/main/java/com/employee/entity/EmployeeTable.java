@@ -18,9 +18,9 @@ import java.time.LocalDate;
 @Table(name = "employee")
 public class EmployeeTable {
 
+    private String name;
     @Id
     private long aadhar;
-    private String name;
     private int age;
     private String department;
     private String city;

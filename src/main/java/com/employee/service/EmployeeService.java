@@ -20,6 +20,10 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
     public void addEmployee(EmployeeDTO employeeDTO) throws ApplicationException {
         Optional<EmployeeTable> optionalEmployee = employeeRepository.findById(employeeDTO.getAadhar());
         if (optionalEmployee.isPresent()) throw new ApplicationException(Constants.EMPLOYEE_ALREADY_EXISTS_ERROR_MSG);
