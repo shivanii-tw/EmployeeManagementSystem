@@ -27,7 +27,7 @@ class EmployeeControllerSpec extends Specification{
     private MockMvc mvc
 
     @MockBean
-    private EmployeeService employeeService;
+    private EmployeeService employeeService
 
     def "should return employee by aadhar with status 200"() {
         given:

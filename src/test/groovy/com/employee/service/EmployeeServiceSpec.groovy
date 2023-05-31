@@ -1,8 +1,9 @@
+package com.employee.service
+
 import com.employee.dto.EmployeeDTO
 import com.employee.entity.EmployeeTable
 import com.employee.exception.ApplicationException
 import com.employee.repository.EmployeeRepository
-import com.employee.service.EmployeeService
 import com.employee.utility.Constants
 import spock.lang.Specification
 
@@ -11,7 +12,7 @@ import java.time.LocalDate
 class EmployeeServiceSpec extends Specification{
 
     def employeeRepoMock = Mock(EmployeeRepository)
-    def employeeServiceMock = new EmployeeService(employeeRepoMock);
+    def employeeServiceMock = new EmployeeService(employeeRepoMock)
 
     def "should return employee when valid aadhar is given"(){
         given:
@@ -66,7 +67,7 @@ class EmployeeServiceSpec extends Specification{
 
     def "should return all employees"() {
         given:
-        def expectedEmployeeList = new ArrayList();
+        def expectedEmployeeList = new ArrayList()
         expectedEmployeeList.add(EmployeeTable.builder().name("hey").aadhar(1000).age(20)
                 .department("sales").city("hyd").dob(LocalDate.now()).build())
         expectedEmployeeList.add(EmployeeTable.builder().name("hi").aadhar(1001).age(20)
