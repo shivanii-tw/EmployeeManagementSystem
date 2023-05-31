@@ -15,7 +15,8 @@ class EmployeeServiceSpec extends Specification{
 
     def "should return employee when valid aadhar is given"(){
         given:
-        def expected = EmployeeTable.builder().name("hey").aadhar(1000).age(20).department("sales").city("hyd").dob(LocalDate.now()).build()
+        def expected = EmployeeTable.builder().name("hey").aadhar(1000).age(20)
+                .department("sales").city("hyd").dob(LocalDate.now()).build()
 
         when:
         employeeServiceMock.getEmployee(1000)
@@ -40,7 +41,8 @@ class EmployeeServiceSpec extends Specification{
 
     def "should update department of employee when valid aadhar is given"() {
         given:
-        def employeeBefore = EmployeeTable.builder().name("hey").aadhar(1000).age(20).department("sales").city("hyd").dob(LocalDate.now()).build()
+        def employeeBefore = EmployeeTable.builder().name("hey").aadhar(1000).age(20)
+                .department("sales").city("hyd").dob(LocalDate.now()).build()
 
         when:
         employeeServiceMock.updateEmployee(1000,"marketing")
@@ -62,11 +64,13 @@ class EmployeeServiceSpec extends Specification{
         err.message == Constants.EMPLOYEE_DOESNOT_EXISTS_ERROR_MSG
     }
 
-    def "should return all employees"(){
+    def "should return all employees"() {
         given:
         def expectedEmployeeList = new ArrayList();
-        expectedEmployeeList.add(EmployeeTable.builder().name("hey").aadhar(1000).age(20).department("sales").city("hyd").dob(LocalDate.now()).build())
-        expectedEmployeeList.add(EmployeeTable.builder().name("hi").aadhar(1001).age(20).department("sales").city("hyd").dob(LocalDate.now()).build())
+        expectedEmployeeList.add(EmployeeTable.builder().name("hey").aadhar(1000).age(20)
+                .department("sales").city("hyd").dob(LocalDate.now()).build())
+        expectedEmployeeList.add(EmployeeTable.builder().name("hi").aadhar(1001).age(20)
+                .department("sales").city("hyd").dob(LocalDate.now()).build())
 
         when:
         employeeServiceMock.getAllEmployees()
@@ -78,7 +82,8 @@ class EmployeeServiceSpec extends Specification{
 
     def "should create a new employee with given details"(){
         given:
-        def employeeDTO = EmployeeDTO.builder().name("hi").aadhar(1001).age(20).department("sales").city("hyd").dob(LocalDate.now()).build()
+        def employeeDTO = EmployeeDTO.builder().name("hi").aadhar(1001).age(20)
+                .department("sales").city("hyd").dob(LocalDate.now()).build()
         employeeRepoMock.findById(1001) >> Optional.empty()
 
         when:
@@ -89,10 +94,12 @@ class EmployeeServiceSpec extends Specification{
 
     }
 
-    def "should throw error when trying to add existing employee details"(){
+    def "should throw error when trying to add existing employee details"() {
         given:
-        def employeeEntity = EmployeeTable.builder().name("hi").aadhar(1001).age(20).department("sales").city("hyd").dob(LocalDate.now()).build()
-        def employeeDTO = EmployeeDTO.builder().name("hi").aadhar(1001).age(20).department("sales").city("hyd").dob(LocalDate.now()).build()
+        def employeeEntity = EmployeeTable.builder().name("hi").aadhar(1001).age(20)
+                .department("sales").city("hyd").dob(LocalDate.now()).build()
+        def employeeDTO = EmployeeDTO.builder().name("hi").aadhar(1001).age(20)
+                .department("sales").city("hyd").dob(LocalDate.now()).build()
         employeeRepoMock.findById(1001) >> Optional.of(employeeEntity)
 
         when:
