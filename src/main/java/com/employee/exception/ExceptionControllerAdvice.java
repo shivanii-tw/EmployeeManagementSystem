@@ -1,9 +1,7 @@
 package com.employee.exception;
 
-import com.employee.utility.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -30,17 +28,17 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorInfo> exceptionHandler(HttpMessageNotReadableException exception) {
-        ErrorInfo errorInfo = new ErrorInfo();
-        errorInfo.setErrorCode(HttpStatus.BAD_REQUEST.value());
-
-        String errorMsg = Constants.EMPLOYEE_DOB_FORMAT_ERROR_MSG;
-
-        errorInfo.setErrorMessage(errorMsg);
-        errorInfo.setTimestamp(LocalDateTime.now());
-        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler(HttpMessageNotReadableException.class)
+//    public ResponseEntity<ErrorInfo> exceptionHandler(HttpMessageNotReadableException exception) {
+//        ErrorInfo errorInfo = new ErrorInfo();
+//        errorInfo.setErrorCode(HttpStatus.BAD_REQUEST.value());
+//
+//        String errorMsg = Constants.EMPLOYEE_DOB_FORMAT_ERROR_MSG;
+//
+//        errorInfo.setErrorMessage(errorMsg);
+//        errorInfo.setTimestamp(LocalDateTime.now());
+//        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+//    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorInfo> exceptionHandler(Exception exception) {
